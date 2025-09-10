@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Run the Gradle build command to generate the JAR file
-RUN ./gradlew bootJar
+RUN gradlew bootJar
 
 # Copy the build output to the container
 COPY build/libs/demo-0.0.1-SNAPSHOT.jar app.jar
