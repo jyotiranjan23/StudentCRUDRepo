@@ -1,5 +1,5 @@
 # Stage 1: Build the JAR
-FROM gradle:8.4.1-jdk21 AS builder
+FROM gradle:8.4.1-jdk21-alpine AS builder
 
 WORKDIR /home/gradle/project
 
