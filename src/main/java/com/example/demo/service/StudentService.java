@@ -1,12 +1,13 @@
 package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import com.example.demo.entity.Student;
 import com.example.demo.repository.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,9 +49,20 @@ public class StudentService {
     }
 
     // Get All Students with Pagination
-    public List<Student> getAllStudents(int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page, size,Sort.by(sortBy));
-        return studentRepository.findAll(pageable).getContent();
+    public List<Student> getAllStudents() {
+        int page = 0; // default page number
+        int size = 5; // default page size
+         List<Student> result = new ArrayList<>();
+        while (true) {
+             Pageable pageable = PageRequest.of(page, size);
+           List<Student> students = studentRepository.findAll(pageable).getContent();
+            if(students.isEmpty()) {
+                break;
+            }
+            page++;
+            result.addAll(students);
+        }
+       return result;
     }
 }
 

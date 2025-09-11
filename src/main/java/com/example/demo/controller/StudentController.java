@@ -28,33 +28,28 @@ public class StudentController {
 
     // Read by ID
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable Long id) {
+    public Student getStudentById(@PathVariable("id") Long id) {
         return studentService.getStudentById(id)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
     }
 
     // Update
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Long id, @RequestBody Student student) {
+    public Student updateStudent(@PathVariable("id") Long id, @RequestBody Student student) {
         return studentService.updateStudent(id, student);
     }
 
     // Delete
     @DeleteMapping("/{id}")
-    public String deleteStudent(@PathVariable Long id) {
+    public String deleteStudent(@PathVariable("id") Long id) {
         studentService.deleteStudent(id);
         return "Student deleted successfully!";
     }
 
     // Get All with Pagination
     @GetMapping
-    public List<Student> getAllStudents(
-            @RequestParam int page,   // page number
-            @RequestParam int size,
-            @RequestParam String sortBy
-            
-    ) {
-        return studentService.getAllStudents(page, size, sortBy);
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
 }
 
